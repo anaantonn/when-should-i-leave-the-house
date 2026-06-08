@@ -1,0 +1,30 @@
+name: Lint action
+
+on:
+    push:
+        branches:
+            - main
+            - development
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    lint:
+        name: Run linter
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+
+            - name: Install ruff
+              run: pip install ruff
+
+            - name: Run linter
+              run: ruff check .
